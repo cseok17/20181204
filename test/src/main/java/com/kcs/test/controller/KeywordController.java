@@ -55,7 +55,7 @@ public class KeywordController {
 				keywordArray.add(keywordObj);
 				i++;
 				
-				if (i > 10) {
+				if (i > 9) {
 					break;
 				}
 			}
