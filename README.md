@@ -4,6 +4,9 @@
 ---------------------------------------------
 Program
 ---------------------------------------------
+--JDK (jdk1.8.0_121)
+	https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+	
 --eclipse
 	https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-jee-2018-09-win32-x86_64.zip&mirror_id=1248
 
