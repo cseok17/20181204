@@ -53,42 +53,20 @@ public class ApiController {
 			 
 			HttpHeaders headers = new HttpHeaders(); 
 			headers.setContentType(MediaType.APPLICATION_JSON);//JSON 변환 
-			headers.set("Authorization", api_key); //appKey 설정 ,KakaoAK kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk 이 형식 준수
-			
-			System.out.println("addr - headers");
-			System.out.println(headers);
+			headers.set("Authorization", api_key); 
 			
 			HttpEntity entity = new HttpEntity("parameters", headers); 
 			
-			//URI url=URI.create("https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=?&y=?"); 
-			System.out.println("addr - entity");
-			System.out.println(entity);
-			//URI url=URI.create("https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=?&y=?"); 
-			
-			//URI url=URI.create("https://dapi.kakao.com/v2/local/search/keyword.json?y=37.514322572335935&x=127.06283102249932&radius=20000&query='카카오프렌즈'"); 
-			//String keyword = "카카오프렌즈";
-				
 			String enc_keyword = URLEncoder.encode(keyword, "UTF-8");
 			
 			URI url=URI.create(api_url + "?query=" + enc_keyword + "&page=" + search_page); 
 			
-			System.out.println("addr - url");
-			System.out.println(url);
-			//x -> x좌표, y -> y좌표 
-			 
 			ResponseEntity response= restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 			
-			System.out.println("addr - response");
-			System.out.println(response);
 			
 			JSONParser jsonParser = new JSONParser(); 
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.getBody().toString()); 
-			System.out.println("addr - jsonObject");
-			System.out.println(jsonObject);
 			map = (Map)jsonObject;
-			
-			System.out.println("apicontroller - map");
-			System.out.println(map);
 			
 		} catch(Exception e){
 			logger.error("##### error : " + e.getMessage());
