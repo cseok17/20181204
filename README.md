@@ -18,7 +18,7 @@ Program
 	https://www.sqlite.org/download.html
 	(Precompiled Binaries for Windows --> sqlite-dll-win64-x64-3250300.zip)
 
---sqlitebrowser (Sqlite 조회용 프로그램)
+--sqlitebrowser (Sqlite DB생성 및 조회용 프로그램)
 	http://sqlitebrowser.org/
 	
 ---------------------------------------------
