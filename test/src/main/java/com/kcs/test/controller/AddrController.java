@@ -49,7 +49,7 @@ public class AddrController {
 		System.out.println(data);
 		
 		try {
-			if (data.get("gubun") == "curr") {
+			if ("curr".equals(data.get("gubun").toString())) {
 				System.out.println("Keyword Insert / Update");
 				boolean keyword_exist = keyword_yn(entityManager, data.get("keyword").toString());
 				
