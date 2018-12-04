@@ -32,12 +32,11 @@ public class AddrController {
 		
 		HttpSession session = req.getSession(true);
 		session.getAttribute("user_id");
-		
-		System.out.println(session.getAttribute("user_id"));
 				
 		return "addr";
 	}
 	
+	/* 키워드 검색 실행 시*/
 	@RequestMapping(value = "/addr_action", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String,Object> addr_action(@RequestBody Map<String, Object> data, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -46,32 +45,30 @@ public class AddrController {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test");
 		EntityManager entityManager = factory.createEntityManager();
 		
-		System.out.println(data);
-		
-		try {
+		try { 
+			/* 키워드 검색 시 데이터 저장 */
 			if ("curr".equals(data.get("gubun").toString())) {
-				System.out.println("Keyword Insert / Update");
+				/* 키워드가 신규인지 기존에 존재하는 키워드인지 확인 */
 				boolean keyword_exist = keyword_yn(entityManager, data.get("keyword").toString());
 				
 				if (!keyword_exist) {
-					System.out.println("Insert keyword_data"); 			
+					/* 키워드가 신규일 경우 INSERT */ 			
 					keyword_insert(entityManager, data.get("keyword").toString());
-	
 				} else {
-					System.out.println("Update keyword_data"); 			
+					/* 키워드가 존재할 경우 UPDATE */ 			
 					keyword_update(entityManager, data.get("keyword").toString());
 				}
 			}
 			
-			/* API - START */
+			/* 키워드 검색  */
 			ApiController api = new ApiController();
 			map = api.addrApi(data.get("keyword").toString(), Math.round((Double)data.get("search_page")));
 			map.put("search_page", Math.round((Double)data.get("search_page")));
 
 			HttpSession session = req.getSession(true);
 		} catch (Exception e) {
-			map.put("res_code", "90002");
-			map.put("res_desc", "로그인 중 오류 발생");
+			map.put("res_code", "99999");
+			map.put("res_desc", "키워드 검색 중 오류 발생");
 			logger.error("##### error : " + e.getMessage());
 			entityManager.close();
 			factory.close();
@@ -80,29 +77,25 @@ public class AddrController {
 			factory.close();
 		}
 
-		System.out.println(map);
 		return map;
 	}	
 	
+	/* 키워드가 신규인지 기존에 존재하는 키워드인지 확인 */
 	public boolean keyword_yn(EntityManager entityManager, String keyword) {
 		Object keyword_data = entityManager.find(Keyword.class, keyword);
-		System.out.println("addr_action - keyword_data"); 			
-		System.out.println(keyword_data); 
 		
-		if (keyword_data == null || keyword_data == "") {
-			System.out.println("addr_action - keyword_data_null"); 			
+		if (keyword_data == null || "".equals(keyword_data)) {
 			return false;
 		} else {
-			System.out.println("addr_action - keyword_data_notnull");
 			return true;
 		}
 	}
 	
+	/* 키워드가 신규일 경우 INSERT */
 	public void keyword_insert(EntityManager entityManager, String keyword) {
 		EntityTransaction transaction = entityManager.getTransaction(); 
 		try {
 			transaction.begin(); 
-			System.out.println("addr_action - Insert keyword_data"); 			
 			
 			Keyword newKeyword = new Keyword(keyword, 1);
 			entityManager.persist(newKeyword);
@@ -113,16 +106,13 @@ public class AddrController {
 			transaction.rollback();
 		} 
 	}
-	
+	/* 키워드가 존재할 경우 UPDATE */
 	public void keyword_update(EntityManager entityManager, String keyword) {
 		EntityTransaction transaction = entityManager.getTransaction(); 
 		try {
 			transaction.begin(); 
 		
-			System.out.println("Update keyword"); 			
-			
 			Keyword uptKeyword = entityManager.find(Keyword.class, keyword); 
-			System.out.println("Update keyword count : " + uptKeyword.getCount()); 			
 			
 			uptKeyword.setCount(uptKeyword.getCount() + 1);
 			

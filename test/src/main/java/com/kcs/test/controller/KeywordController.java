@@ -1,10 +1,8 @@
 package com.kcs.test.controller;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,6 +28,7 @@ public class KeywordController {
 
 	private static final Logger logger = LoggerFactory.getLogger(KeywordController.class);
 	
+	/* 인기검색어 (TOP10) 조회 */
 	@RequestMapping(value = "/keyword_action", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String,Object> login_action(@RequestBody Map data, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -63,7 +62,7 @@ public class KeywordController {
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("keyword", keywordArray);
 			
-			map = (Map)jsonObj;
+			map = (Map)jsonObj; 
 			
 		} catch (Exception e) {
 			map.put("res_code", "99999");

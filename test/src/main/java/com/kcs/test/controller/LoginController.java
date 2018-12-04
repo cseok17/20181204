@@ -37,20 +37,20 @@ public class LoginController {
 		HttpSession session = req.getSession(true);
 		session.getAttribute("user_id");
 		
-		System.out.println(session.getAttribute("user_id"));
-		
 		/* 초기 사용자 데이터 생성 */
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test");
 		EntityManager entityManager = factory.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction(); 
 		
+		/* 초기 사용자 ID/비밀번호 */
 		String init_user = "test";
 		String init_pswd = "test";
 		
 		try {	
 			Object user_data = entityManager.find(User.class, init_user);
 			
-			if (user_data == null || user_data == "") {
+			/* 초기 사용자 Data가 있을 경우 INSERT 안함 */
+			if (user_data == null || "".equals(user_data)) {
 				System.out.println("Insert Init User");
 				transaction.begin(); 
 	
@@ -97,9 +97,11 @@ public class LoginController {
 			
 			JSONObject obj_data = new JSONObject(user_data);
 			
+			/* 비밓번호 암호화 */
 			PswdController pswdctl = new PswdController();
 			String hash_pswd = pswdctl.hash(obj.getString("pswd"));
-					
+			
+			/* 비밓번호 검증 */
 			if (hash_pswd.equals(obj_data.getString("pswd"))) {
 				map.put("res_code", "00000");
 				map.put("res_desc", "success");
@@ -166,6 +168,7 @@ public class LoginController {
 		return data;
 	}
 	
+	/* 사용자 생성 확인용 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		
@@ -187,8 +190,6 @@ public class LoginController {
 			// get list 
 			query = entityManager.createQuery("from User"); 
 			list = query.getResultList(); 
-			
-			logger.debug("##### list.size : " + list.size());
 			
 			mav.addObject("list", list);
 			System.out.println(mav);
