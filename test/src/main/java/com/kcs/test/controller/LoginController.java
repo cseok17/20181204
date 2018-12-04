@@ -144,7 +144,6 @@ public class LoginController {
 			//비밀번호 암호화
 			PswdController pswdctl = new PswdController();
 			String hash_pswd = pswdctl.hash(obj.getString("pswd"));
-			System.out.println(hash_pswd);
 			
 			//사용자 생성
 			User newUser = new User(obj.getString("id"), hash_pswd);

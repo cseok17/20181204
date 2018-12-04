@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.kcs.test.db.DbManager;
 import com.kcs.test.entity.Keyword;
 import com.kcs.test.controller.ApiController;
 

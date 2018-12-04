@@ -73,7 +73,7 @@ public class KeywordController {
 			entityManager.close();
 			factory.close();
 		}
-		System.out.println(map);
+		
 		return map;
 	}
 }

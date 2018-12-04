@@ -30,6 +30,7 @@ public class ApiController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		try {
+			/* REST API */
 			RestTemplate restTemplate = new RestTemplate(); 
 			 
 			HttpHeaders headers = new HttpHeaders(); 
@@ -43,7 +44,6 @@ public class ApiController {
 			URI url=URI.create(api_url + "?query=" + enc_keyword + "&page=" + search_page); 
 			
 			ResponseEntity response= restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-			
 			
 			JSONParser jsonParser = new JSONParser(); 
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.getBody().toString()); 
