@@ -5,20 +5,25 @@
 Program
 ---------------------------------------------
 --JDK (jdk1.8.0_121)
+	
 	https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 	
 --eclipse
+	
 	https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-jee-2018-09-win32-x86_64.zip&mirror_id=1248
 
 --apache-tomcat
+	
 	https://tomcat.apache.org/download-90.cgi
 	(64-bit Windows zip --> apache-tomcat-9.0.13-windows-x64.zip)
 
 --sqlite
+	
 	https://www.sqlite.org/download.html
 	(Precompiled Binaries for Windows --> sqlite-dll-win64-x64-3250300.zip)
 
 --sqlitebrowser (Sqlite DB생성 및 조회용 프로그램)
+	
 	http://sqlitebrowser.org/
 	
 ---------------------------------------------
@@ -73,6 +78,7 @@ pom
 sqlite
 ---------------------------------------------
 path : c:\sqlite
+
 DBname : test.db
 
 ---------------------------------------------
